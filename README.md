@@ -1,5 +1,5 @@
 # Tamagotchi
-## Documentação do Projeto Tamagotchi em Java
+## Modelagem e Desenvolvimento de um Tamagotchi em Java
 ### 1. Introdução
 Este projeto tem como objetivo simular um Tamagotchi, um animal de estimação virtual, utilizando os princípios da Programação Orientada a Objetos (POO) em Java. O Tamagotchi é um sistema interativo em que o usuário pode interagir e cuidar de seu "pet", realizando ações como alimentar, brincar, dormir, envelhecer e cuidar de sua higiene. Além disso, um mini-jogo foi adicionado como uma funcionalidade opcional, permitindo que o Tamagotchi interaja com o usuário de uma maneira mais divertida.
 
