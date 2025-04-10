@@ -1,94 +1,132 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class Tamagotchi {
-    private int fome;
-    private int felicidade;
-    private int energia;
-    private int idade;
-    private boolean saude;
-    private int higiene;
-    private boolean socializacao;
+    private Status status;
+    private Random random;
+    private Scanner scanner;
 
-    // Construtor
     public Tamagotchi() {
-        this.fome = 50;
-        this.felicidade = 50;
-        this.energia = 50;
-        this.idade = 0;  // Começando com idade 0
-        this.saude = true;
-        this.higiene = 50;
-        this.socializacao = true;
+        this.status = new Status();
+        this.random = new Random();
+        this.scanner = new Scanner(System.in);
     }
 
-    // Métodos de interação com o Tamagotchi
     public void alimentar() {
-        if (fome > 0) {
-            fome -= 10;
-            energia += 5;
+        if (status.getFome() > 0) {
+            status.setFome(status.getFome() - 10);
+            status.setEnergia(status.getEnergia() + 5);
             System.out.println("Tamagotchi alimentado!");
         }
     }
 
     public void brincar() {
-        if (energia > 0) {
-            felicidade += 10;
-            energia -= 5;
-            socializacao = true;
+        if (status.getEnergia() > 0) {
+            status.setFelicidade(status.getFelicidade() + 10);
+            status.setEnergia(status.getEnergia() - 5);
+            status.setSocializacao(true);
             System.out.println("Tamagotchi brincando!");
         }
     }
 
     public void dormir() {
-        energia = 50;
+        status.setEnergia(50);
         System.out.println("Tamagotchi dormindo.");
     }
 
     public void envelhecer() {
-        idade++;
-        if (idade == 2) {
+        status.setIdade(status.getIdade() + 1);
+        if (status.getIdade() == 2) {
             System.out.println("O Tamagotchi se tornou um adolescente!");
-        } else if (idade == 4) {
+        } else if (status.getIdade() == 4) {
             System.out.println("O Tamagotchi se tornou um adulto!");
         }
 
-        if (idade > 5 && saude) {
-            saude = false;
+        if (status.getIdade() > 5 && status.isSaude()) {
+            status.setSaude(false);
             System.out.println("O Tamagotchi adoeceu!");
         }
     }
 
     public void cuidarHigiene() {
-        higiene = 100;
+        status.setHigiene(100);
         System.out.println("Higiene do Tamagotchi restaurada.");
     }
 
-    // Método para verificar o status
-    public String verificarStatus() {
-        // Verificando e mostrando a idade corretamente
-        return "Fome: " + fome + "\n" +
-                "Felicidade: " + felicidade + "\n" +
-                "Energia: " + energia + "\n" +
-                "Idade: " + idade + "\n" +  // A idade aqui deve aparecer corretamente
-                "Saúde: " + (saude ? "Boa" : "Ruim") + "\n" +
-                "Higiene: " + higiene + "\n" +
-                "Socialização: " + (socializacao ? "Boa" : "Ruim");
+    public void verificarStatus() {
+        status.mostrarStatus();
     }
 
-    // Método para evento aleatório (exemplo: dia chuvoso)
     public void eventoAleatorio() {
-        Random rand = new Random();
-        int evento = rand.nextInt(10);
-
-        // Se o evento for 0, um "dia chuvoso" acontece e diminui a energia
-        if (evento == 0) {
-            energia -= 10;
-            System.out.println("Dia chuvoso! A energia do Tamagotchi diminuiu.");
+        int evento = random.nextInt(10);
+        if (evento < 2) {
+            status.setEnergia(status.getEnergia() - 5);  // Diminui energia em caso de evento negativo
+            System.out.println("Um evento negativo aconteceu! O Tamagotchi perdeu energia.");
+        } else if (evento < 5) {
+            status.setFome(status.getFome() + 5);  // Aumenta a fome aleatoriamente
+            System.out.println("O Tamagotchi ficou mais faminto.");
+        } else if (evento < 7) {
+            status.setFelicidade(status.getFelicidade() - 5);  // Diminui felicidade
+            System.out.println("O Tamagotchi ficou um pouco triste.");
+        } else if (evento < 9) {
+            status.setHigiene(status.getHigiene() - 10);  // Diminui higiene aleatoriamente
+            System.out.println("A higiene do Tamagotchi piorou!");
         }
     }
 
-    // Método para aumentar a idade periodicamente
-    public void aumentarIdadePeriodicamente() {
-        // Isso pode ser chamado em intervalos regulares para simular o envelhecimento
-        envelhecer();
+    // Novo método para jogar mini-jogo com melhorias
+    public void jogarMiniJogo() {
+        // Definindo o nível de dificuldade
+        System.out.println("Escolha a dificuldade do jogo:");
+        System.out.println("1 - Fácil");
+        System.out.println("2 - Médio");
+        System.out.println("3 - Difícil");
+        int dificuldade = scanner.nextInt();
+
+        int limiteTentativas;
+        int intervalo;
+        int numeroCorreto;
+
+        // Ajustando a dificuldade
+        if (dificuldade == 1) {
+            limiteTentativas = 5;
+            intervalo = 10;  // Números entre 1 e 10
+        } else if (dificuldade == 2) {
+            limiteTentativas = 3;
+            intervalo = 50;  // Números entre 1 e 50
+        } else {
+            limiteTentativas = 2;
+            intervalo = 100;  // Números entre 1 e 100
+        }
+
+        numeroCorreto = random.nextInt(intervalo) + 1;  // Número entre 1 e intervalo
+        int tentativas = 0;
+        boolean acertou = false;
+
+        System.out.println("Você tem " + limiteTentativas + " tentativas para acertar o número entre 1 e " + intervalo);
+
+        // Loop para o número de tentativas
+        while (tentativas < limiteTentativas && !acertou) {
+            System.out.print("Tentativa " + (tentativas + 1) + ": Qual número você acha que o Tamagotchi deve adivinhar? ");
+            int tentativa = scanner.nextInt();
+            tentativas++;
+
+            // Verificando a tentativa
+            if (tentativa == numeroCorreto) {
+                acertou = true;
+                System.out.println("Parabéns! O Tamagotchi acertou o número! Felicidade aumentada.");
+                status.setFelicidade(status.getFelicidade() + (10 * (limiteTentativas - tentativas + 1)));  // Pontos aumentados com base nas tentativas restantes
+            } else if (tentativa < numeroCorreto) {
+                System.out.println("O número correto é maior. Tente novamente!");
+            } else {
+                System.out.println("O número correto é menor. Tente novamente!");
+            }
+        }
+
+        // Caso o jogador tenha falhado
+        if (!acertou) {
+            System.out.println("Que pena! O Tamagotchi errou o número. O número correto era " + numeroCorreto);
+            status.setFelicidade(status.getFelicidade() - 10);  // Diminui felicidade se não acertar
+        }
     }
 }
