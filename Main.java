@@ -1,25 +1,53 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Tamagotchi tamagotchi = new Tamagotchi();
+        Scanner scanner = new Scanner(System.in);
+        boolean rodando = true;
 
-        // Exibe o status inicial
-        System.out.println("Status inicial do Tamagotchi:");
-        tamagotchi.verificarStatus();
+        while (rodando) {
+            System.out.println("\nEscolha uma ação:");
+            System.out.println("1 - Alimentar");
+            System.out.println("2 - Brincar");
+            System.out.println("3 - Dormir");
+            System.out.println("4 - Verificar Status");
+            System.out.println("5 - Envelhecer");
+            System.out.println("6 - Cuidar da Higiene");
+            System.out.println("7 - Sair");
 
-        // Interação com o Tamagotchi
-        tamagotchi.alimentar();
-        tamagotchi.brincar();
-        tamagotchi.dormir();
-        tamagotchi.envelhecer();
+            int escolha = scanner.nextInt();
 
-        // Evento aleatório (simulando eventos no jogo)
-        tamagotchi.eventoAleatorio();
+            switch (escolha) {
+                case 1:
+                    tamagotchi.alimentar();
+                    break;
+                case 2:
+                    tamagotchi.brincar();
+                    break;
+                case 3:
+                    tamagotchi.dormir();
+                    break;
+                case 4:
+                    tamagotchi.verificarStatus();
+                    break;
+                case 5:
+                    tamagotchi.envelhecer();
+                    break;
+                case 6:
+                    tamagotchi.cuidarHigiene();
+                    break;
+                case 7:
+                    rodando = false;
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Escolha inválida.");
+            }
 
-        // Mini-jogo
-        tamagotchi.miniJogo();
+            tamagotchi.eventoAleatorio();  // Gerar evento aleatório
+        }
 
-        // Verificando o status do Tamagotchi após interações
-        System.out.println("\nStatus final do Tamagotchi após as interações:");
-        tamagotchi.verificarStatus();
+        scanner.close();
     }
 }
