@@ -94,15 +94,6 @@ Ao escolher a opção 8, o usuário participa de um jogo simples onde deve adivi
 
 ---
 
-## 📝 Possíveis Melhorias Futuras
-
-- Interface gráfica (Swing ou JavaFX)
-- Sistema de salvamento e carregamento
-- Inventário de itens
-- Evolução do Tamagotchi
-
----
-
 ## 📌 Observações
 
 Esse projeto foi desenvolvido com fins educacionais, como forma de aplicar os conceitos básicos de orientação a objetos, lógica condicional, laços de repetição e boas práticas de programação.
