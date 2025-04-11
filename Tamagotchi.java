@@ -35,18 +35,30 @@ public class Tamagotchi {
     }
 
     public void envelhecer() {
-        status.setIdade(status.getIdade() + 1);
-        if (status.getIdade() == 2) {
-            System.out.println("O Tamagotchi se tornou um adolescente!");
-        } else if (status.getIdade() == 4) {
-            System.out.println("O Tamagotchi se tornou um adulto!");
-        }
+        int anosParaEnvelhecer = 1; // ou você pode passar esse valor como parâmetro futuramente
 
-        if (status.getIdade() > 5 && status.isSaude()) {
-            status.setSaude(false);
-            System.out.println("O Tamagotchi adoeceu!");
+        for (int i = 1; i <= anosParaEnvelhecer; i++) {
+            status.setIdade(status.getIdade() + 1);
+
+            // Mostra a idade atual
+            System.out.println("O Tamagotchi agora tem " + status.getIdade() + " ano" + (status.getIdade() > 1 ? "s" : ""));
+
+            // Mudanças de fase
+            if (status.getIdade() == 2) {
+                System.out.println("O Tamagotchi se tornou um adolescente!");
+            } else if (status.getIdade() == 4) {
+                System.out.println("O Tamagotchi se tornou um adulto!");
+            }
+
+            // Condição de saúde
+            if (status.getIdade() > 5 && status.isSaude()) {
+                status.setSaude(false);
+                System.out.println("O Tamagotchi adoeceu!");
+            }
         }
     }
+
+
 
     public void cuidarHigiene() {
         status.setHigiene(100);
@@ -58,21 +70,29 @@ public class Tamagotchi {
     }
 
     public void eventoAleatorio() {
-        int evento = random.nextInt(10);
-        if (evento < 2) {
-            status.setEnergia(status.getEnergia() - 5);  // Diminui energia em caso de evento negativo
-            System.out.println("Um evento negativo aconteceu! O Tamagotchi perdeu energia.");
-        } else if (evento < 5) {
-            status.setFome(status.getFome() + 5);  // Aumenta a fome aleatoriamente
-            System.out.println("O Tamagotchi ficou mais faminto.");
-        } else if (evento < 7) {
-            status.setFelicidade(status.getFelicidade() - 5);  // Diminui felicidade
-            System.out.println("O Tamagotchi ficou um pouco triste.");
-        } else if (evento < 9) {
-            status.setHigiene(status.getHigiene() - 10);  // Diminui higiene aleatoriamente
-            System.out.println("A higiene do Tamagotchi piorou!");
+        int evento = random.nextInt(4); // Gera de 0 a 3
+
+        switch (evento) {
+            case 0:
+                status.setEnergia(status.getEnergia() - 5);
+                System.out.println("Um evento negativo aconteceu! O Tamagotchi perdeu energia.");
+                break;
+            case 1:
+                status.setFome(status.getFome() + 5);
+                System.out.println("O Tamagotchi ficou mais faminto.");
+                break;
+            case 2:
+                status.setFelicidade(status.getFelicidade() - 5);
+                System.out.println("O Tamagotchi ficou um pouco triste.");
+                break;
+            case 3:
+                status.setHigiene(status.getHigiene() - 10);
+                System.out.println("A higiene do Tamagotchi piorou!");
+                break;
         }
     }
+
+
 
     // Novo método para jogar mini-jogo com melhorias
     public void jogarMiniJogo() {

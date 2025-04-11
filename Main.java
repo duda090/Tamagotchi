@@ -25,15 +25,18 @@ public class Main {
                     break;
                 case 2:
                     tamagotchi.brincar();
+                    tamagotchi.eventoAleatorio();  // aqui sim pode acontecer algo aleatório
                     break;
                 case 3:
                     tamagotchi.dormir();
+                    tamagotchi.eventoAleatorio();
                     break;
                 case 4:
                     tamagotchi.verificarStatus();
                     break;
                 case 5:
                     tamagotchi.envelhecer();
+                    tamagotchi.eventoAleatorio();
                     break;
                 case 6:
                     tamagotchi.cuidarHigiene();
@@ -44,12 +47,11 @@ public class Main {
                     break;
                 case 8:
                     tamagotchi.jogarMiniJogo();
+                    tamagotchi.eventoAleatorio();
                     break;
                 default:
                     System.out.println("Escolha inválida.");
             }
-
-            tamagotchi.eventoAleatorio();  // Gerar evento aleatório
         }
 
         scanner.close();
